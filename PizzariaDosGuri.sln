@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.705
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{17D45FD6-576E-4AD4-A39E-7D9D87F36BDE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{1804E90C-0FE7-481E-B9A8-47B507B863F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{317452A8-8609-4836-A986-E746F7B89806}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{35E65B9D-AEEA-4CA4-A3FF-B314AAEFD878}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzariaDosGuri.API", "PizzariaDosGuri.API\PizzariaDosGuri.API.csproj", "{AA63BC1A-63C2-4F53-979E-F51BE4843450}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzariaDosGuri.DAL", "PizzariaDosGuri.DAL\PizzariaDosGuri.DAL.csproj", "{E389DBFE-730A-49B6-A099-AAD1F9565B76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{7C81C20A-8A94-4B7A-93F3-2EED4C20BC55}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA63BC1A-63C2-4F53-979E-F51BE4843450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA63BC1A-63C2-4F53-979E-F51BE4843450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA63BC1A-63C2-4F53-979E-F51BE4843450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA63BC1A-63C2-4F53-979E-F51BE4843450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E389DBFE-730A-49B6-A099-AAD1F9565B76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E389DBFE-730A-49B6-A099-AAD1F9565B76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E389DBFE-730A-49B6-A099-AAD1F9565B76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E389DBFE-730A-49B6-A099-AAD1F9565B76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C81C20A-8A94-4B7A-93F3-2EED4C20BC55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C81C20A-8A94-4B7A-93F3-2EED4C20BC55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C81C20A-8A94-4B7A-93F3-2EED4C20BC55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C81C20A-8A94-4B7A-93F3-2EED4C20BC55}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{317452A8-8609-4836-A986-E746F7B89806} = {1804E90C-0FE7-481E-B9A8-47B507B863F1}
+		{AA63BC1A-63C2-4F53-979E-F51BE4843450} = {35E65B9D-AEEA-4CA4-A3FF-B314AAEFD878}
+		{E389DBFE-730A-49B6-A099-AAD1F9565B76} = {317452A8-8609-4836-A986-E746F7B89806}
+		{7C81C20A-8A94-4B7A-93F3-2EED4C20BC55} = {17D45FD6-576E-4AD4-A39E-7D9D87F36BDE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C19731FB-DD23-4AD2-96C4-4468EA135BDB}
+	EndGlobalSection
+EndGlobal
