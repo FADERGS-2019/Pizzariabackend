@@ -56,6 +56,14 @@
     <Compile Include="Migrations\201909041632044_cliente.Designer.cs">
       <DependentUpon>201909041632044_cliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910011748426_pedidos.cs" />
+    <Compile Include="Migrations\201910011748426_pedidos.Designer.cs">
+      <DependentUpon>201910011748426_pedidos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910020016019_correção pedidos.cs" />
+    <Compile Include="Migrations\201910020016019_correção pedidos.Designer.cs">
+      <DependentUpon>201910020016019_correção pedidos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PizzariaDataContext.cs" />
     <Compile Include="Migrations\DataInitializer\Contract\IDataInitializer.cs" />
@@ -77,6 +85,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909041632044_cliente.resx">
       <DependentUpon>201909041632044_cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910011748426_pedidos.resx">
+      <DependentUpon>201910011748426_pedidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910020016019_correção pedidos.resx">
+      <DependentUpon>201910020016019_correção pedidos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
