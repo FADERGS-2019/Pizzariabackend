@@ -28,7 +28,7 @@ namespace PizzariaDosGuri.API.Controllers
                 {
                     return Ok(context.Pedidos.OrderByDescending(x => x.PedidoId).Select(item => new
                     {
-                        
+                        item.cliente,
                         item.entrega,
                         item.pagamento,
                         item.itens
@@ -42,7 +42,31 @@ namespace PizzariaDosGuri.API.Controllers
             }
         }
 
-        //----------------------------------------
+        [AllowAnonymous]
+        [Route("GetNotDone")]
+        public IHttpActionResult GetNotDone()
+        {
+            try
+            {
+                using (PizzariaDataContext context = new PizzariaDataContext())
+                {
+                    return Ok(context.Pedidos.OrderByDescending(x => x.PedidoId).Where(x=>x.Status == false).Select(item => new
+                    {
+                        item.cliente,
+                        item.entrega,
+                        item.pagamento,
+                        item.itens
+
+                    }).ToList());
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+   
         /// <summary>
         /// Método responsável por salvar/atualizar os registros dos clientes. 
         /// </summary>
@@ -60,7 +84,8 @@ namespace PizzariaDosGuri.API.Controllers
                 using (PizzariaDataContext context = new PizzariaDataContext())
                 {
 
-
+                    var email = "";
+                    var body = "";
                     var clienteDb = context.Clientes.FirstOrDefault(x => x.Telefone == model.entrega.Telefone);
                     var pedidoDb = context.Pedidos.FirstOrDefault(x => x.PedidoId != model.PedidoId);
                     model.cliente = clienteDb;
@@ -78,9 +103,12 @@ namespace PizzariaDosGuri.API.Controllers
                     pedidoDb.DataInclusao = DateTime.Now;
                     
                     context.SaveChanges();
+                    ExampleController.Execute(email,body).Wait();
                     if (isCreated)
                         return Created($"{Request.RequestUri.ToString()}/{pedidoDb.PedidoId}", pedidoDb);
 
+
+                
                     return Ok();
                 }
             }
@@ -89,9 +117,6 @@ namespace PizzariaDosGuri.API.Controllers
                 return InternalServerError(ex);
             }
         }
-
-
-        //criar api's aqui
 
         protected override void Dispose(bool disposing)
         {
