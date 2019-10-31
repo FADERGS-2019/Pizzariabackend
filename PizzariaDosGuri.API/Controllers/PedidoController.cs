@@ -13,11 +13,7 @@ namespace PizzariaDosGuri.API.Controllers
     {
         private PizzariaDataContext db = new PizzariaDataContext();
 
-        /// <summary>
         /// Método responsável por resgatar todos os clientes
-        /// </summary>
-        /// <remarks>Retorna a lista de clientes ordenados por id</remarks>
-        /// <response code="500">Internal Server Error.</response>
         [AllowAnonymous]
         [Route("Get")]
         public IHttpActionResult Get()
@@ -66,15 +62,7 @@ namespace PizzariaDosGuri.API.Controllers
             }
         }
 
-   
-        /// <summary>
         /// Método responsável por salvar/atualizar os registros dos clientes. 
-        /// </summary>
-        /// <param name="model">Salvar o cliente</param>
-        /// <remarks>Adiciona e edita os registros dos clientes.</remarks>
-        /// <response code="200">Registro Alterado.</response>
-        /// <response code="201">Registro Criado.</response>
-        /// <response code="500">Internal Server Error.</response>
         [AllowAnonymous]
         [Route("Post")]
         public IHttpActionResult Post(Pedido model)
@@ -84,18 +72,24 @@ namespace PizzariaDosGuri.API.Controllers
                 using (PizzariaDataContext context = new PizzariaDataContext())
                 {
 
-                    var email = "";
-                    var body = "";
+                    
+                    var body = "Seu pedido, foi recebido e já será preparado por nossos chefs!";
                     var clienteDb = context.Clientes.FirstOrDefault(x => x.Telefone == model.entrega.Telefone);
                     var pedidoDb = context.Pedidos.FirstOrDefault(x => x.PedidoId != model.PedidoId);
                     model.cliente = clienteDb;
-              
-                    
+                    var email = model.entrega.Email;
+
+                    //var teste = model.itens.disuahasgydsgsiau
+                    //asuygasguyasfyfsa
+                    //    asfuasgyusaguysfaguysaf
+                    //    afuasguyfasguysa
+
                     var isCreated = false;
 
                     model.Id = context.Pedidos.OrderByDescending(x => x.Id).First().Id + 1;
                     model.PedidoId = context.Pedidos.OrderByDescending(x => x.PedidoId).First().PedidoId + 1;
                     model.cliente.ClienteId = context.Clientes.OrderByDescending(x => x.ClienteId).First().ClienteId + 1;
+                    
  
                     pedidoDb = context.Pedidos.Add(model);
                   
@@ -103,12 +97,10 @@ namespace PizzariaDosGuri.API.Controllers
                     pedidoDb.DataInclusao = DateTime.Now;
                     
                     context.SaveChanges();
-                    ExampleController.Execute(email,body).Wait();
+                    EmailController.Execute(email,body).Wait();
                     if (isCreated)
                         return Created($"{Request.RequestUri.ToString()}/{pedidoDb.PedidoId}", pedidoDb);
 
-
-                
                     return Ok();
                 }
             }

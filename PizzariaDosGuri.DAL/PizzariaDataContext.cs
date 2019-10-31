@@ -6,8 +6,7 @@ namespace PizzariaDosGuri.DAL
 {
     public class PizzariaDataContext : DbContext
     {
-        public PizzariaDataContext()
-       : base("PizzariaConnection") { }
+        public PizzariaDataContext(): base("PizzariaConnection") { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
