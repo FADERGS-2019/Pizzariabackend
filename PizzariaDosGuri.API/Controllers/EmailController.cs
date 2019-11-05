@@ -13,7 +13,7 @@ namespace PizzariaDosGuri.API.Controllers
     public class EmailController
     {
 
-        public static async Task Execute(string email,string body)
+        public static async Task Execute(string email,string body,string subject)
         {
             //cria uma mensagem
             MailMessage mail = new MailMessage();
@@ -24,7 +24,7 @@ namespace PizzariaDosGuri.API.Controllers
             mail.To.Add(email);
 
             //define o conteúdo
-            mail.Subject = "Seu Pedido foi Confirmado!!!";
+            mail.Subject = subject;
             mail.Body = body;
 
             //envia a mensagem
