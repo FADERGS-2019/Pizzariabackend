@@ -3,7 +3,6 @@ using PizzariaDosGuri.DAL;
 using System;
 using System.Data.Entity;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -24,7 +23,6 @@ namespace PizzariaDosGuri.API.Controllers
             base.Dispose(disposing);
         }
 
-        /// Método responsável por resgatar todos os clientes
         [AllowAnonymous]
         [Route("Get")]
         public IHttpActionResult Get()
@@ -74,7 +72,7 @@ namespace PizzariaDosGuri.API.Controllers
                 return InternalServerError(ex);
             }
         }
-        /// Método responsável por salvar/atualizar os registros dos clientes. 
+
         [AllowAnonymous]
         [Route("Post")]
         public IHttpActionResult Post(Pedido model)
@@ -86,6 +84,7 @@ namespace PizzariaDosGuri.API.Controllers
 
                     var subject = "Seu Pedido foi Confirmado!!!";
                     var body = "Seu pedido, foi recebido e já será preparado por nossos chefs!";
+
                     var clienteDb = context.Clientes.FirstOrDefault(x => x.Telefone == model.entrega.Telefone);
                     var pedidoDb = context.Pedidos.FirstOrDefault(x => x.PedidoId != model.PedidoId);
                     model.cliente = clienteDb;
@@ -97,9 +96,7 @@ namespace PizzariaDosGuri.API.Controllers
                     model.PedidoId = context.Pedidos.OrderByDescending(x => x.PedidoId).First().PedidoId + 1;
                     model.cliente.ClienteId = context.Clientes.OrderByDescending(x => x.ClienteId).First().ClienteId + 1;
 
-
                     pedidoDb = context.Pedidos.Add(model);
-
                     isCreated = true;
                     pedidoDb.DataInclusao = DateTime.Now;
 
@@ -139,7 +136,7 @@ namespace PizzariaDosGuri.API.Controllers
 
                     context.Entry(pedidoDb).State = EntityState.Modified;
                     context.SaveChanges();
-                    EmailController.Execute(email, body,subject).Wait();
+                    EmailController.Execute(email, body, subject).Wait();
                     if (isCreated)
                         return Created($"{Request.RequestUri.ToString()}/{pedidoDb.PedidoId}", pedidoDb);
 
