@@ -547,9 +547,119 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Cenário 8: Fazer um pedido com dados invalidos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "755e0252-d40b-4ac3-909e-1a2324f920a2",
+								"exec": [
+									"pm.test(\"Código de status é 400\", () => {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Mensagem de status é Bad Request\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Bad Request');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entrega\": {\n        \"cep\": 1,\n        \"rua\": 1,\n        \"numero\": 1,\n        \"nome\": 1,\n        \"email\": 1,\n        \"telefone\": 1,\n        \"complemento\": 1\n    },\n    \"pagamento\": {\n        \"total\": \"string\",\n        \"tipo\": 1,\n        \"bandeira\": 1,\n        \"metodo\": 1\n    },\n    \"itens\": [\n        {\n            \"tipo\": 1,\n            \"tamanho\": 1,\n            \"borda\": 1,\n            \"sabores\": [\n                {\n                    \"nome:\": 1,\n                    \"quantidade\": \"string\"\n                }\n            ],\n            \"valor\": \"string\"\n        },\n        {\n            \"tipo\": 1,\n            \"sabor\": 1,\n            \"tamanho\": 1,\n            \"valor\": \"string\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Pedidos/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Pedidos",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cenário 9: Fazer um pedido enviando um numero do tipo float na quantidade",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "755e0252-d40b-4ac3-909e-1a2324f920a2",
+								"exec": [
+									"pm.test(\"Código de status é 400\", () => {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Mensagem de status é Bad Request\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Bad Request');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entrega\": {\n        \"cep\": \"{{$randomZipCode}}\",\n        \"rua\": \"{{$randomStreetName}}\",\n        \"numero\": \"29\",\n        \"nome\": \"{{$randomFullName}}\",\n        \"email\": \"{{$randomEmail}}\",\n        \"telefone\": \"{{$randomPhoneNumber}}\",\n        \"complemento\": \"AP 201\"\n    },\n    \"pagamento\": {\n        \"total\": 59.8,\n        \"tipo\": \"cartao\",\n        \"bandeira\": \"mastercard\",\n        \"metodo\": \"credito\"\n    },\n    \"itens\": [\n        {\n            \"tipo\": \"pizza\",\n            \"tamanho\": \"grande\",\n            \"borda\": \"catupiry\",\n            \"sabores\": [\n                {\n                    \"nome:\": \"4 queijos\",\n                    \"quantidade\": 2\n                },\n                {\n                    \"nome:\": \"portuguesa\",\n                    \"quantidade\": 2\n                }\n            ],\n            \"valor\": 49.9\n        },\n        {\n            \"tipo\": \"bedida\",\n            \"sabor\": \"coca-cola\",\n            \"tamanho\": \"330ml\",\n            \"valor\": 9.9\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Pedidos/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Pedidos",
+								"post"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"description": "\r\n@US3\r\nCenario 1: Fazer um pedido de uma Pizza grande com bebida\r\nDado que todos os campos entao preenchidos com dados validos\r\nE que o tamanho da Pizza é do tamanho grande\r\nE que um item do tipo bebida está sendo enviado na requisição\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\nCenario 2: Fazer um pedido de uma Pizza pequena\r\nDado que todos os campos entao preenchidos com dados validos\r\nE que o tamanho da Pizza é do tamanho pequena\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\nCenario 3: Fazer um pedido de uma Pizza media com bebida\r\nDado que todos os campos entao preenchidos com dados validos\r\nE que o tamanho da Pizza é do tamanho medio\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\n@US1\r\nCenario 4: Fazer um pedido de um combo\r\nDado que todos os campos entao preenchidos com dados validos\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\n@US4 @US2 @US3\r\nCenario 5: Fazer um pedido de duas Pizzas, uma pequena e outra media, ambas com dois sabores e uma bebida\r\nDado que todos os campos entao preenchidos com dados validos\r\nE que dois itens do tipo Pizza foram adicionados a requisição\r\nE que um item esta com o tipo grande\r\nE o outro está com o tipo medio\r\nE que o item sabores está com dois items em ambas as pizzas\r\nE que um item do tipo bebida está sendo enviado na requisição\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\n@US7\r\nCenario 6: Visualizar pedidos pendentes\r\nDado que existem pedidos pendentes\r\nQuando eu fazer uma requisicao de GET para api/Pedidos/<ver o param>\r\nEntao os pedidos pendentes devem ser retornados no corpo da resposata\r\nE a resposta HTTP deve ser 200 OK\r\n\r\nCenario 7: Atualizar status do pedido para completo\r\nDado que existem pedidos pendentes\r\nE que a requisição esta com o dado que altera o status para completo\r\nQuando eu fizer uma requisição PATCH para api/Pedidos/<ver o param>\r\nEntao o pedido deve ser atualizado para completo\r\nE a resposta HTTP deve ser 200 OK",
+			"description": "Funcionalidade: Pedido\r\n\r\n@US3\r\nCenário 1: Fazer um pedido de uma Pizza grande com bebida\r\nDado que todos os campos então preenchidos com dados validos\r\nE que o tamanho da Pizza é do tamanho grande\r\nE que um item do tipo bebida está sendo enviado na requisição\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\nCenário 2: Fazer um pedido de uma Pizza pequena\r\nDado que todos os campos então preenchidos com dados validos\r\nE que o tamanho da Pizza é do tamanho pequena\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\nCenário 3: Fazer um pedido de uma Pizza média com bebida\r\nDado que todos os campos então preenchidos com dados validos\r\nE que o tamanho da Pizza é do tamanho médio\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\n@US1\r\nCenario 4: Fazer um pedido de um combo\r\nDado que todos os campos então preenchidos com dados validos\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\n@US4 @US2 @US3\r\nCenario 5: Fazer um pedido de duas Pizzas, uma pequena e outra média, ambas com dois sabores e uma bebida\r\nDado que todos os campos então preenchidos com dados validos\r\nE que dois itens do tipo Pizza foram adicionados a requisição\r\nE que um item está com o tipo grande\r\nE o outro está com o tipo médio\r\nE que o item sabores está com dois itens em ambas as pizzas\r\nE que um item do tipo bebida está sendo enviado na requisição\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\n@US7\r\nCenário 6: Visualizar pedidos pendentes\r\nDado que existem pedidos pendentes\r\nQuando eu fazer uma requisicao de GET para api/Pedidos/<ver o param>\r\nEntao os pedidos pendentes devem ser retornados no corpo da resposata\r\nE a resposta HTTP deve ser 200 OK\r\n\r\nCenário 7: Atualizar status do pedido para completo\r\nDado que existem pedidos pendentes\r\nE que a requisição está com o dado que altera o status para completo\r\nQuando eu fizer uma requisição PATCH para api/Pedidos/<ver o param>\r\nEntão o pedido deve ser atualizado para completo\r\nE a resposta HTTP deve ser 200 OK\r\n\r\nCenário 8: Fazer um pedido com dados invalidos\r\nDado que todos os campos então preenchidos com dados invalidos\r\nE todos os campos string estao com dados do tipo integer\r\nE todos os campos do tipo number estao com strings\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido nao deve ser salvo\r\nE a resposta HTTP deve ser 400 Bad Request",
 			"event": [
 				{
 					"listen": "prerequest",

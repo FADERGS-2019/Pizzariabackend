@@ -56,3 +56,17 @@ Quando eu fizer uma requisição PATCH para api/Pedidos/<ver o param>
 Então o pedido deve ser atualizado para completo
 E a resposta HTTP deve ser 200 OK
 
+Cenário 8: Fazer um pedido com dados invalidos
+Dado que todos os campos então preenchidos com dados invalidos
+E todos os campos string estao com dados do tipo integer
+E todos os campos do tipo number estao com strings
+Quando eu fazer uma requisição post para /api/Pedidos/post
+Então o pedido nao deve ser salvo
+E a resposta HTTP deve ser 400 Bad Request
+
+Cenário 9: Fazer um pedido enviando um numero do tipo float na quantidade
+Dado que todos os campos então preenchidos com dados validos
+E o campo quantidade esta preenchido com um valor do tipo float
+Quando eu fazer uma requisição post para /api/Pedidos/post
+Então o pedido nao deve ser salvo
+E a resposta HTTP deve ser 400 Bad Request
