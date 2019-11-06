@@ -45,7 +45,7 @@ E a resposta HTTP deve ser 201 Created
 @US7
 Cenário 6: Visualizar pedidos pendentes
 Dado que existem pedidos pendentes
-Quando eu fazer uma requisicao de GET para api/Pedidos/<ver o param>
+Quando eu fazer uma requisicao de GET para /api/Pedidos/GetNotDone
 Entao os pedidos pendentes devem ser retornados no corpo da resposata
 E a resposta HTTP deve ser 200 OK
 
