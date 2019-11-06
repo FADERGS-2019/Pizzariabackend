@@ -70,3 +70,10 @@ E o campo quantidade esta preenchido com um valor do tipo float
 Quando eu fazer uma requisição post para /api/Pedidos/post
 Então o pedido nao deve ser salvo
 E a resposta HTTP deve ser 400 Bad Request
+
+Cenário 10: Alterar o status do pedido para concluido
+Dado que existe um pedido
+E ele esta com status de pendente
+Quando eu fazer uma requisição post para /api/Pedidos/postdone
+Então o pedido deve ser atualizado para o status de done
+E a resposta HTTP deve ser 200 OK
