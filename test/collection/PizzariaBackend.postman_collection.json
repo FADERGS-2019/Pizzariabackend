@@ -1,0 +1,898 @@
+{
+	"info": {
+		"_postman_id": "1e5d3625-5f51-4a12-bcbf-460806f1099b",
+		"name": "Pizzaria Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Funcionalidade: Pedido",
+			"item": [
+				{
+					"name": "Cenario 1: Fazer um pedido de uma Pizza grande com bebida",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "755e0252-d40b-4ac3-909e-1a2324f920a2",
+								"exec": [
+									"pm.test(\"Código de status é 201\", () => {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Mensagem de status é Created\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Created');",
+									"});",
+									"",
+									"pm.test('Json Schema é valido', () => {",
+									"    const result = tv4.validateMultiple(pm.response.json(), JSON.parse(pm.environment.get('schema-pedidos')));",
+									"    pm.expect(result.valid).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entrega\": {\n        \"cep\": \"90010-300\",\n        \"rua\": \"R. dos Andradas\",\n        \"numero\": \"29\",\n        \"nome\": \"José S. Silva Pinto Dias\",\n        \"email\": \"williansouza258@gmail.com\",\n        \"telefone\": \"995932534\",\n        \"complemento\": \"AP 201\"\n    },\n    \"pagamento\": {\n        \"total\": 59.9,\n        \"tipo\": \"cartao\",\n        \"bandeira\": \"mastercard\",\n        \"metodo\": \"credito\"\n    },\n    \"itens\": [\n        {\n            \"tipo\": \"pizza\",\n            \"tamanho\": \"grande\",\n            \"borda\": \"catupiry\",\n            \"Sabores\": [\n                {\n                    \"Quantidade\": 1,\n                    \"Nome\": \"portuguesa\"\n                },\n                {\n                    \"Quantidade\": 3,\n                    \"Nome\": \"mussarela\"\n                }\n            ],\n            \"valor\": 49.9\n        },\n        {\n            \"tipo\": \"bedida\",\n            \"sabor\": \"coca-cola\",\n            \"tamanho\": \"330ml\",\n            \"valor\": 9.9\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Pedidos/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Pedidos",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cenario 2: Fazer um pedido de uma Pizza pequena",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "755e0252-d40b-4ac3-909e-1a2324f920a2",
+								"exec": [
+									"pm.test(\"Código de status é 201\", () => {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Mensagem de status é Created\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Created');",
+									"});",
+									"",
+									"pm.test('Json Schema é valido', () => {",
+									"    const result = tv4.validateMultiple(pm.response.json(), JSON.parse(pm.environment.get('fazer schema')));",
+									"    pm.expect(result.valid).to.be.true;",
+									"});",
+									"",
+									"pm.test('Valida se o valor da resposta é igual ao valor enviado', () => {",
+									"    const req = JSON.parse(pm.request.body.raw);",
+									"    const {",
+									"        ...response",
+									"    } = pm.response.json();",
+									"    pm.expect(req).to.deep.equal(response);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entrega\": {\n        \"cep\": \"90010-300\",\n        \"rua\": \"R. dos Andradas\",\n        \"numero\": \"29\",\n        \"nome\": \"José S. Silva Pinto Dias\",\n        \"email\": \"williansouza258@gmail.com\",\n        \"telefone\": \"995932534\",\n        \"complemento\": \"AP 201\"\n    },\n    \"pagamento\": {\n        \"total\": 59.9,\n        \"tipo\": \"cartao\",\n        \"bandeira\": \"mastercard\",\n        \"metodo\": \"credito\"\n    },\n    \"itens\": [\n        {\n            \"tipo\": \"pizza\",\n            \"tamanho\": \"pequena\",\n            \"borda\": \"catupiry\",\n            \"sabores\": [\n                {\n                    \"nome:\": \"portuguesa\",\n                    \"quantidade\": 2\n                }\n            ],\n            \"valor\": 25\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Pedidos/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Pedidos",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cenario 3: Fazer um pedido de uma Pizza media com bebida",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "755e0252-d40b-4ac3-909e-1a2324f920a2",
+								"exec": [
+									"pm.test(\"Código de status é 201\", () => {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Mensagem de status é Created\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Created');",
+									"});",
+									"",
+									"pm.test('Json Schema é valido', () => {",
+									"    const result = tv4.validateMultiple(pm.response.json(), JSON.parse(pm.environment.get('fazer schema')));",
+									"    pm.expect(result.valid).to.be.true;",
+									"});",
+									"",
+									"pm.test('Valida se o valor da resposta é igual ao valor enviado', () => {",
+									"    const req = JSON.parse(pm.request.body.raw);",
+									"    const {",
+									"        ...response",
+									"    } = pm.response.json();",
+									"    pm.expect(req).to.deep.equal(response);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entrega\": {\n        \"cep\": \"90010-300\",\n        \"rua\": \"R. dos Andradas\",\n        \"numero\": \"29\",\n        \"nome\": \"José S. Silva Pinto Dias\",\n        \"email\": \"williansouza258@gmail.com\",\n        \"telefone\": \"995932534\",\n        \"complemento\": \"AP 201\"\n    },\n    \"pagamento\": {\n        \"total\": 59.9,\n        \"tipo\": \"cartao\",\n        \"bandeira\": \"mastercard\",\n        \"metodo\": \"credito\"\n    },\n    \"itens\": [\n        {\n            \"tipo\": \"pizza\",\n            \"tamanho\": \"media\",\n            \"borda\": \"catupiry\",\n            \"sabores\": [\n                {\n                    \"nome:\": \"portuguesa\",\n                    \"quantidade\": 2\n                }\n            ],\n            \"valor\": 25\n        },\n        {\n            \"tipo\": \"bedida\",\n            \"sabor\": \"coca-cola\",\n            \"tamanho\": \"330ml\",\n            \"valor\": 9.9\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Pedidos/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Pedidos",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cenario 4: Fazer um pedido de um combo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "755e0252-d40b-4ac3-909e-1a2324f920a2",
+								"exec": [
+									"pm.test(\"Código de status é 201\", () => {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Mensagem de status é Created\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Created');",
+									"});",
+									"",
+									"pm.test('Json Schema é valido', () => {",
+									"    const result = tv4.validateMultiple(pm.response.json(), JSON.parse(pm.environment.get('fazer schema')));",
+									"    pm.expect(result.valid).to.be.true;",
+									"});",
+									"",
+									"pm.test('Valida se o valor da resposta é igual ao valor enviado', () => {",
+									"    const req = JSON.parse(pm.request.body.raw);",
+									"    const {",
+									"        ...response",
+									"    } = pm.response.json();",
+									"    pm.expect(req).to.deep.equal(response);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entrega\": {\n        \"cep\": \"90010-300\",\n        \"rua\": \"R. dos Andradas\",\n        \"numero\": \"29\",\n        \"nome\": \"José S. Silva Pinto Dias\",\n        \"email\": \"williansouza258@gmail.com\",\n        \"telefone\": \"995932534\",\n        \"complemento\": \"AP 201\"\n    },\n    \"pagamento\": {\n        \"total\": 59.9,\n        \"tipo\": \"cartao\",\n        \"bandeira\": \"mastercard\",\n        \"metodo\": \"credito\"\n    },\n    \"itens\": [\n        {\n            \"tipo\": \"pizza\",\n            \"tamanho\": \"media\",\n            \"borda\": \"catupiry\",\n            \"sabores\": [\n                {\n                    \"nome:\": \"portuguesa\",\n                    \"quantidade\": 2\n                }\n            ],\n            \"valor\": 25\n        },\n        {\n            \"tipo\": \"pizza\",\n            \"tamanho\": \"media\",\n            \"borda\": \"catupiry\",\n            \"sabores\": [\n                {\n                    \"nome:\": \"portuguesa\",\n                    \"quantidade\": 2\n                }\n            ],\n            \"valor\": 25\n        },\n        {\n            \"tipo\": \"bedida\",\n            \"sabor\": \"sprite\",\n            \"tamanho\": \"330ml\",\n            \"valor\": 9.9\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Pedidos/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Pedidos",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cenario 5: Fazer um pedido de duas Pizzas, uma pequena e outra media, ambas com dois sabores e uma bebida",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "755e0252-d40b-4ac3-909e-1a2324f920a2",
+								"exec": [
+									"pm.test(\"Código de status é 201\", () => {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Mensagem de status é Created\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Created');",
+									"});",
+									"",
+									"pm.test('Json Schema é valido', () => {",
+									"    const result = tv4.validateMultiple(pm.response.json(), JSON.parse(pm.environment.get('fazer schema')));",
+									"    pm.expect(result.valid).to.be.true;",
+									"});",
+									"",
+									"pm.test('Valida se o valor da resposta é igual ao valor enviado', () => {",
+									"    const req = JSON.parse(pm.request.body.raw);",
+									"    const {",
+									"        ...response",
+									"    } = pm.response.json();",
+									"    pm.expect(req).to.deep.equal(response);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entrega\": {\n        \"cep\": \"90010-300\",\n        \"rua\": \"R. dos Andradas\",\n        \"numero\": \"29\",\n        \"nome\": \"José S. Silva Pinto Dias\",\n        \"email\": \"williansouza258@gmail.com\",\n        \"telefone\": \"995932534\",\n        \"complemento\": \"AP 201\"\n    },\n    \"pagamento\": {\n        \"total\": 59.9,\n        \"tipo\": \"cartao\",\n        \"bandeira\": \"mastercard\",\n        \"metodo\": \"credito\"\n    },\n    \"itens\": [\n        {\n            \"tipo\": \"pizza\",\n            \"tamanho\": \"media\",\n            \"borda\": \"catupiry\",\n            \"sabores\": [\n                {\n                    \"nome:\": \"portuguesa\",\n                    \"quantidade\": 2\n                }\n            ],\n            \"valor\": 25\n        },\n        {\n            \"tipo\": \"pizza\",\n            \"tamanho\": \"pequena\",\n            \"borda\": \"catupiry\",\n            \"sabores\": [\n                {\n                    \"nome:\": \"portuguesa\",\n                    \"quantidade\": 1\n                }\n            ],\n            \"valor\": 23\n        },\n        {\n            \"tipo\": \"bedida\",\n            \"sabor\": \"fruki\",\n            \"tamanho\": \"330ml\",\n            \"valor\": 9.9\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Pedidos/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Pedidos",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cenario 6: Visualizar pedidos pendentes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "755e0252-d40b-4ac3-909e-1a2324f920a2",
+								"exec": [
+									"pm.test(\"Código de status é 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Mensagem de status é OK\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('OK');",
+									"});",
+									"",
+									"pm.test('Json Schema é valido', () => {",
+									"    const result = tv4.validateMultiple(pm.response.json(), JSON.parse(pm.environment.get('fazer schema')));",
+									"    pm.expect(result.valid).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Pedidos/Get",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Pedidos",
+								"Get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cenario 7: Atualizar status do pedido para completo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "755e0252-d40b-4ac3-909e-1a2324f920a2",
+								"exec": [
+									"pm.test(\"Código de status é 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Mensagem de status é OK\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('OK');",
+									"});",
+									"",
+									"pm.test('Json Schema é valido', () => {",
+									"    const result = tv4.validateMultiple(pm.response.json(), JSON.parse(pm.environment.get('fazer schema')));",
+									"    pm.expect(result.valid).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "af6b3ef9-5dd7-4bab-b4ef-5fe935cb7529",
+								"exec": [
+									"const _data = {",
+									"    \"entrega\": {",
+									"        \"cep\": \"{{$randomZipCode}}\",",
+									"        \"rua\": \"{{$randomStreetName}}\",",
+									"        \"numero\": \"29\",",
+									"        \"nome\": \"{{$randomFullName}}\",",
+									"        \"email\": \"{{$randomEmail}}\",",
+									"        \"telefone\": \"{{$randomPhoneNumber}}\",",
+									"        \"complemento\": \"AP 201\"",
+									"    },",
+									"    \"pagamento\": {",
+									"        \"total\": 59.8,",
+									"        \"tipo\": \"cartao\",",
+									"        \"bandeira\": \"mastercard\",",
+									"        \"metodo\": \"credito\"",
+									"    },",
+									"    \"itens\": [{",
+									"        \"tipo\": \"pizza\",",
+									"        \"tamanho\": \"grande\",",
+									"        \"borda\": \"catupiry\",",
+									"        \"sabores\": [{",
+									"            \"nome:\": \"4 queijos\",",
+									"            \"quantidade\": 2",
+									"        }, {",
+									"            \"nome:\": \"portuguesa\",",
+									"            \"quantidade\": 2",
+									"        }],",
+									"        \"valor\": 49.9",
+									"    }, {",
+									"        \"tipo\": \"bedida\",",
+									"        \"sabor\": \"coca-cola\",",
+									"        \"tamanho\": \"330ml\",",
+									"        \"valor\": 9.9",
+									"    }]",
+									"};",
+									"",
+									"const options = {",
+									"    url: 'http://localhost:51627/api/Pedidos/post',",
+									"    method: 'POST',",
+									"    header: {",
+									"        'content-type': 'application/json',",
+									"        'Connection': 'Close'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(_data)",
+									"    }",
+									"};",
+									"",
+									"const interval = setTimeout(() => {}, 500),",
+									"    promise = (text) => {",
+									"        const promise = new Promise((resolve, reject) => {",
+									"            pm.sendRequest(options, (err, response) => {",
+									"                if (err) return reject(err);",
+									"                resolve(response);",
+									"            });",
+									"        });",
+									"        return promise;",
+									"    };",
+									"",
+									"promise(options).then((res) => {",
+									"//TODO:FAZER REQUISICAO PARA FAZER O PATCH DO STATUS",
+									"}).then(() => {",
+									"    clearTimeout(interval);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Pedidos/Get",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Pedidos",
+								"Get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cenário 8: Fazer um pedido com dados invalidos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "755e0252-d40b-4ac3-909e-1a2324f920a2",
+								"exec": [
+									"pm.test(\"Código de status é 400\", () => {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Mensagem de status é Bad Request\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Bad Request');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entrega\": {\n        \"cep\": 1,\n        \"rua\": 1,\n        \"numero\": 1,\n        \"nome\": 1,\n        \"email\": 1,\n        \"telefone\": 1,\n        \"complemento\": 1\n    },\n    \"pagamento\": {\n        \"total\": \"string\",\n        \"tipo\": 1,\n        \"bandeira\": 1,\n        \"metodo\": 1\n    },\n    \"itens\": [\n        {\n            \"tipo\": 1,\n            \"tamanho\": 1,\n            \"borda\": 1,\n            \"sabores\": [\n                {\n                    \"nome:\": 1,\n                    \"quantidade\": \"string\"\n                }\n            ],\n            \"valor\": \"string\"\n        },\n        {\n            \"tipo\": 1,\n            \"tamanho\": 1,\n            \"borda\": 1,\n            \"sabores\": [\n                {\n                    \"nome:\": 1,\n                    \"quantidade\": \"string\"\n                }\n            ],\n            \"valor\": \"string\"\n        },\n        {\n            \"tipo\": 1,\n            \"sabor\": 1,\n            \"tamanho\": 1,\n            \"valor\": \"string\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Pedidos/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Pedidos",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cenário 9: Fazer um pedido enviando um numero do tipo float na quantidade",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "755e0252-d40b-4ac3-909e-1a2324f920a2",
+								"exec": [
+									"pm.test(\"Código de status é 400\", () => {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Mensagem de status é Bad Request\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Bad Request');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entrega\": {\n        \"cep\": \"90010-300\",\n        \"rua\": \"R. dos Andradas\",\n        \"numero\": \"29\",\n        \"nome\": \"José S. Silva Pinto Dias\",\n        \"email\": \"williansouza258@gmail.com\",\n        \"telefone\": \"995932534\",\n        \"complemento\": \"AP 201\"\n    },\n    \"pagamento\": {\n        \"total\": 59.9,\n        \"tipo\": \"cartao\",\n        \"bandeira\": \"mastercard\",\n        \"metodo\": \"credito\"\n    },\n    \"itens\": [\n        {\n            \"tipo\": \"pizza\",\n            \"tamanho\": \"media\",\n            \"borda\": \"catupiry\",\n            \"sabores\": [\n                {\n                    \"nome:\": \"portuguesa\",\n                    \"quantidade\": 2.5\n                }\n            ],\n            \"valor\": 25\n        },\n        {\n            \"tipo\": \"pizza\",\n            \"tamanho\": \"pequena\",\n            \"borda\": \"catupiry\",\n            \"sabores\": [\n                {\n                    \"nome:\": \"portuguesa\",\n                    \"quantidade\": 2.9\n                }\n            ],\n            \"valor\": 23\n        },\n        {\n            \"tipo\": \"bedida\",\n            \"sabor\": \"fruki\",\n            \"tamanho\": \"330ml\",\n            \"valor\": 9.9\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Pedidos/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Pedidos",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cenário 10: Alterar o status do pedido para concluido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "755e0252-d40b-4ac3-909e-1a2324f920a2",
+								"exec": [
+									"pm.test(\"Código de status é 201\", () => {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Mensagem de status é Created\", () => {",
+									"    pm.expect(pm.response.status).to.be.equal('Created');",
+									"});",
+									"",
+									"pm.test('Json Schema é valido', () => {",
+									"    const result = pm.response.json().Status;",
+									"    pm.expect(result).to.be.true;",
+									"});",
+									"",
+									"pm.environment.unset(\"id\");",
+									"pm.environment.unset(\"PedidoId\");",
+									"pm.environment.unset(\"email\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6d18c011-d753-4b6f-a3b0-11d8e34ec8a3",
+								"exec": [
+									"const _data = {",
+									"    \"entrega\": {",
+									"        \"cep\": \"90010-300\",",
+									"        \"rua\": \"R. dos Andradas\",",
+									"        \"numero\": \"29\",",
+									"        \"nome\": \"José S. Silva Pinto Dias\",",
+									"        \"email\": \"williansouza258@gmail.com\",",
+									"        \"telefone\": \"995932534\",",
+									"        \"complemento\": \"AP 201\"",
+									"    },",
+									"    \"pagamento\": {",
+									"        \"total\": 59.9,",
+									"        \"tipo\": \"cartao\",",
+									"        \"bandeira\": \"mastercard\",",
+									"        \"metodo\": \"credito\"",
+									"    },",
+									"    \"itens\": [{",
+									"        \"tipo\": \"pizza\",",
+									"        \"tamanho\": \"grande\",",
+									"        \"borda\": \"catupiry\",",
+									"        \"Sabores\": [{",
+									"            \"Quantidade\": 1,",
+									"            \"Nome\": \"portuguesa\"",
+									"        }, {",
+									"            \"Quantidade\": 3,",
+									"            \"Nome\": \"mussarela\"",
+									"        }],",
+									"        \"valor\": 49.9",
+									"    }, {",
+									"        \"tipo\": \"bedida\",",
+									"        \"sabor\": \"coca-cola\",",
+									"        \"tamanho\": \"330ml\",",
+									"        \"valor\": 9.9",
+									"    }]",
+									"};",
+									"",
+									"const options = {",
+									"    url: 'http://localhost:51627/api/Pedidos/post',",
+									"    method: 'POST',",
+									"    header: {",
+									"        'content-type': 'application/json',",
+									"        'Connection': 'Close'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify(_data)",
+									"    }",
+									"};",
+									"",
+									"const interval = setTimeout(() => {}, 900000),",
+									"    promise = (text) => {",
+									"        const promise = new Promise((resolve, reject) => {",
+									"            pm.sendRequest(options, (err, response) => {",
+									"                if (err) return reject(err);",
+									"                resolve(response);",
+									"            });",
+									"        });",
+									"        return promise;",
+									"    };",
+									"",
+									"promise(options).then((res) => {",
+									"    pm.environment.set(\"id\", res.json().Id);",
+									"    pm.environment.set(\"PedidoId\", res.json().PedidoId);",
+									"    pm.environment.set(\"email\", res.json().entrega.Email);",
+									"}).then(() => {",
+									"    clearTimeout(interval);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entrega\": {\n        \"Email\": \"{{email}}\"\n    },\n    \"PedidoId\": \"{{PedidoId}}\",\n    \"Id\": \"{{id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Pedidos/postdone",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Pedidos",
+								"postdone"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Funcionalidade: Pedido\r\n\r\n@US3\r\nCenário 1: Fazer um pedido de uma Pizza grande com bebida\r\nDado que todos os campos então preenchidos com dados validos\r\nE que o tamanho da Pizza é do tamanho grande\r\nE que um item do tipo bebida está sendo enviado na requisição\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\nCenário 2: Fazer um pedido de uma Pizza pequena\r\nDado que todos os campos então preenchidos com dados validos\r\nE que o tamanho da Pizza é do tamanho pequena\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\nCenário 3: Fazer um pedido de uma Pizza média com bebida\r\nDado que todos os campos então preenchidos com dados validos\r\nE que o tamanho da Pizza é do tamanho médio\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\n@US1\r\nCenario 4: Fazer um pedido de um combo\r\nDado que todos os campos então preenchidos com dados validos\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\n@US4 @US2 @US3\r\nCenario 5: Fazer um pedido de duas Pizzas, uma pequena e outra média, ambas com dois sabores e uma bebida\r\nDado que todos os campos então preenchidos com dados validos\r\nE que dois itens do tipo Pizza foram adicionados a requisição\r\nE que um item está com o tipo grande\r\nE o outro está com o tipo médio\r\nE que o item sabores está com dois itens em ambas as pizzas\r\nE que um item do tipo bebida está sendo enviado na requisição\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n\r\n@US7\r\nCenário 6: Visualizar pedidos pendentes\r\nDado que existem pedidos pendentes\r\nQuando eu fazer uma requisicao de GET para api/Pedidos/<ver o param>\r\nEntao os pedidos pendentes devem ser retornados no corpo da resposata\r\nE a resposta HTTP deve ser 200 OK\r\n\r\nCenário 7: Atualizar status do pedido para completo\r\nDado que existem pedidos pendentes\r\nE que a requisição está com o dado que altera o status para completo\r\nQuando eu fizer uma requisição PATCH para api/Pedidos/<ver o param>\r\nEntão o pedido deve ser atualizado para completo\r\nE a resposta HTTP deve ser 200 OK\r\n\r\nCenário 8: Fazer um pedido com dados invalidos\r\nDado que todos os campos então preenchidos com dados invalidos\r\nE todos os campos string estao com dados do tipo integer\r\nE todos os campos do tipo number estao com strings\r\nQuando eu fazer uma requisição post para /api/Pedidos/post\r\nEntão o pedido nao deve ser salvo\r\nE a resposta HTTP deve ser 400 Bad Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "057d8572-4687-4412-a671-fba0925d908f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ddc218d-f92b-4623-b204-6a8f8edc8618",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Funcionalidade: Usuário",
+			"item": [
+				{
+					"name": "Cenario 1: Cadastrar um usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept-Encoding",
+								"type": "text",
+								"value": "gzip, deflate"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{autorizacao}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"{{$randomFullName}}\",\n    \"cpf\": \"12345678906\",\n    \"endereco\": \"{{$randomStreetName}}\",\n    \"telefone\": \"{{$randomPhoneNumber}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"ativo\": \"true\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51627/api/Clientes/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51627",
+							"path": [
+								"api",
+								"Clientes",
+								"post"
+							]
+						},
+						"description": "PizzariaClientes "
+					},
+					"response": []
+				}
+			],
+			"description": "@US6\r\nCenario 1: Cadastrar um usuario\r\nDado que todos os campos estão preenchidos com dados validos\r\nQuando eu fazer uma requisição post para /api/Clientes/post\r\nEntão o cliente deve ser salvo\r\nE a resposta HTTP deve ser 201 Created\r\n",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8e3c554b-6397-433d-83dd-cf78c03f7122",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4125485f-abfb-41f1-93e9-95d03c7dc304",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
