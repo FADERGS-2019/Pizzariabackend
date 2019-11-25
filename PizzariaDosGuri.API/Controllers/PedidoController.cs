@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
+
 namespace PizzariaDosGuri.API.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -53,18 +54,15 @@ namespace PizzariaDosGuri.API.Controllers
         {
             try
             {
-                using (PizzariaDataContext context = new PizzariaDataContext())
+                using (var context = new PizzariaDataContext())
                 {
-                    return Ok(context.Pedidos.OrderByDescending(x => x.PedidoId).Where(x => x.Status == false).Select(item => new
-                    {
-                        item.cliente,
-                        item.entrega,
-                        item.pagamento,
-                        item.itens,
-                        item.PedidoId,
-                        item.Id
 
-                    }).ToList());
+                    var pedidosNotDone = context.Pedidos
+                    .Include(b => b.itens.Select(p => p.sabores))
+                    .Where(y => !y.Status)
+                    .ToList();
+
+                    return Ok(pedidosNotDone);
                 }
             }
             catch (Exception ex)
@@ -126,7 +124,7 @@ namespace PizzariaDosGuri.API.Controllers
                     var body = "Seu pedido, já foi preparado, e esta saindo para entrega!";
                     var pedidoDb = context.Pedidos.FirstOrDefault(x => x.PedidoId == model.PedidoId);
                     pedidoDb = context.Pedidos.FirstOrDefault(x => x.Id == model.Id);
-
+                   
                     var email = model.entrega.Email;
                     var isCreated = false;
 

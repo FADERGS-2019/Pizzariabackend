@@ -27,5 +27,8 @@ namespace PizzariaDosGuri.DAL
 
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
+
+        public DbSet<Item> Item { get; set; }
+        public DbSet<Sabores> Sabores { get; set; }
     }
 }

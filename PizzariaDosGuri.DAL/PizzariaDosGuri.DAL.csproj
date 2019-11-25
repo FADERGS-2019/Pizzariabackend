@@ -66,6 +66,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="ThenInclude.EF6, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ThenInclude.EF6.1.0.0.8\lib\net452\ThenInclude.EF6.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Migrations\201909020129087_InitialCreate.cs" />
@@ -91,6 +94,14 @@
     <Compile Include="Migrations\201910302352128_teste.cs" />
     <Compile Include="Migrations\201910302352128_teste.Designer.cs">
       <DependentUpon>201910302352128_teste.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911121814094_adicionando campo troco.cs" />
+    <Compile Include="Migrations\201911121814094_adicionando campo troco.Designer.cs">
+      <DependentUpon>201911121814094_adicionando campo troco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911202253278_correção troco.cs" />
+    <Compile Include="Migrations\201911202253278_correção troco.Designer.cs">
+      <DependentUpon>201911202253278_correção troco.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PizzariaDataContext.cs" />
@@ -125,6 +136,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910302352128_teste.resx">
       <DependentUpon>201910302352128_teste.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911121814094_adicionando campo troco.resx">
+      <DependentUpon>201911121814094_adicionando campo troco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911202253278_correção troco.resx">
+      <DependentUpon>201911202253278_correção troco.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

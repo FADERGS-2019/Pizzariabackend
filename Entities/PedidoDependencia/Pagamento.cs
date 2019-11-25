@@ -9,5 +9,6 @@ namespace Entities
         public string Tipo { get; set; }
         public string Bandeira { get; set; }
         public string Metodo { get; set; }
+        public double Troco { get; set; }
     }
 }
