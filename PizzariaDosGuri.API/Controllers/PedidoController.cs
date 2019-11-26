@@ -58,6 +58,8 @@ namespace PizzariaDosGuri.API.Controllers
                 {
 
                     var pedidosNotDone = context.Pedidos
+                        .Include(o =>o.entrega)
+                        .Include(a =>a.pagamento)
                     .Include(b => b.itens.Select(p => p.sabores))
                     .Where(y => !y.Status)
                     .ToList();
