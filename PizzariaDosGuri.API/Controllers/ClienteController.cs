@@ -66,7 +66,7 @@ namespace PizzariaDosGuri.API.Controllers
             {
             using (PizzariaDataContext context = new PizzariaDataContext())
             {
-                var clienteDb = context.Clientes.FirstOrDefault(x => x.CPF == model.CPF);
+                var clienteDb = context.Clientes.FirstOrDefault(x => x.Telefone == model.Telefone);
                 var isCreated = false;
 
                 if (clienteDb == null)
